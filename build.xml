@@ -1,0 +1,12 @@
+<project name="MyProject" default="dist" basedir=".">
+  <description>
+    simple example build file
+  </description>
+  
+  <target name="compile"
+        description="compile the source">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac Example.java"/>
+  </target>
+
+</project>
