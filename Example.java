@@ -1,6 +1,11 @@
 
 public class Example {
 	public static void main(String[] args) {
-		System.out.println("New class");
+		try{
+				System.out.println("New class");
+		}
+		catch(Exception e) {
+			
+		}
 	}
 }
