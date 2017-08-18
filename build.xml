@@ -11,17 +11,62 @@
     <javac srcdir="." destdir="."/>
   </target>
 
-  <taskdef name="findbugs" classname="Example"/>
+  <path id="findbugs.classpath">
+  <fileset dir="C:\Akhil\Tools\eclipse_j_luna\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1">
+   <include name="*.jar" />
+  </fileset>
+ </path>
   
-  <target name="findbugs" depends="compile">
+  
+  <target name="findbugs" depends="findbugs-init,compile" description="Run code analysis over code to check for problems.">
+         <!-- Fail this target if FindBugs is not installed. -->
+  <echo>*****Performing FindBugs analysis on ${project.name}*****</echo>
+         <taskdef name="findbugs"
+                  classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+                  classpathref="findbugs.classpath" />
+  
+            <!-- Run FindBugs.for HTML output-->
+   <findbugs classpathref="findbugs.classpath"
+          output="html"
+                outputFile="${basedir}/findbugs-reports/findbugs.html"
+         stylesheet="${basedir}/findbugs/fancy-hist.xsl">
+      
+<!-- fancy-hist.xsl stylesheet can be found in findbugs.jar file, 
+       There are other stylesheets available and can be used based on the needs -->
+   
+<!-- An optional nested element which specifies a source directory path containing source files used to  compile the Java code being analyzed.By specifying a source path, any generated XML bug output will have complete source information, which allows later viewing in the GUI. -->
+     
+           <sourcePath path="${src.dir}" />
+   
+ <!-- auxclasspath is an optional nested element which specifies a classpath (Jar files or        directories) containing classes used by the analyzed library or application, but which you don't want to analyze.It is specified the same way as Ant's classpath element for the Java task.-->
 
-    <findbugs home="${findbugs.home}"
-              output="xml:withMessages"
-              outputFile="findbugs.xml" >
-      <auxClasspath path="${basedir}/lib/Regex.jar" />
-      <sourcePath path="${basedir}/src/java" />
-      <class location="${basedir}/bin/bcel.jar" />
-    </findbugs>
-  </target>
+  <auxclasspath refid="classpath"/>
+   
+<!-- A optional nested element specifying which classes to analyze.The class element must specify a location attribute which names the archive file (jar, zip, etc.), directory, or class file to be analyzed. Multiple class elements may be specified as children of a  single findbugs element. In addition to or instead of specifying a class element, the FindBugs task can contain one or more fileset element(s) that specify files to be analyzed. For example, you might use a fileset to specify that all of the jar files in a directory should be analyzed. -->
+    
+  <class location="${build.dir}/WEB-INF/classes" />
   
+        </findbugs>
+ 
+  <!-- Run FindBugs.for XML output -->
+ <findbugs classpathref="findbugs.classpath"
+         output="xml"
+                outputFile="${basedir}/findbugs-reports/findbugs.xml">
+      
+ <!-- An optional nested element which specifies a source directory path containing source files used to  compile the Java code being analyzed.By specifying a source path, any generated XML bug output will have complete source information, which allows later viewing in the GUI. -->
+    
+           <sourcePath path="${src.dir}" />
+   
+ <!-- auxclasspath is an optional nested element which specifies a classpath (Jar files or        directories) containing classes used by the analyzed library or application, but which you don't want to analyze.It is specified the same way as Ant's classpath element for the Java task.-->
+
+  <auxclasspath refid="classpath"/>
+   
+<!-- A optional nested element specifying which classes to analyze.The class element must specify a location attribute which names the archive file (jar, zip, etc.), directory, or class file to be analyzed. Multiple class elements may be specified as children of a  single findbugs element. In addition to or instead of specifying a class element, the FindBugs task can contain one or more fileset element(s) that specify files to be analyzed. For example, you might use a fileset to specify that all of the jar files in a directory should be analyzed. -->
+   
+  <class location="${build.dir}/WEB-INF/classes" />
+
+  </findbugs>
+   <echo>*****FindBugs analysis report saved into ${basedir}/findbugs-                    reports/findbugs.xml*****</echo>
+
+ </target>
 </project>
