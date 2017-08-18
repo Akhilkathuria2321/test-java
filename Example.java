@@ -313,7 +313,7 @@ public class Example {
 
      final String string2 = sb2.toString();
 
-     System.out.println("   - " + (string1 == string2));
+    // System.out.println("   - " + (string1 == string2));
 
  }
 
