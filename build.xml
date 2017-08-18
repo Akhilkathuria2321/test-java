@@ -18,7 +18,7 @@
  </path>
   
   
-  <target name="findbugs" depends="findbugs-init,compile" description="Run code analysis over code to check for problems.">
+  <target name="findbugs" depends="compile" description="Run code analysis over code to check for problems.">
          <!-- Fail this target if FindBugs is not installed. -->
   <echo>*****Performing FindBugs analysis on ${project.name}*****</echo>
          <taskdef name="findbugs"
