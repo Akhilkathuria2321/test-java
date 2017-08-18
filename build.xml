@@ -11,7 +11,7 @@
     <javac srcdir="." destdir="."/>
   </target>
 
-  
+  <taskdef name="findbugs" classname="Example"/>
   
   <target name="findbugs" depends="compile">
 
