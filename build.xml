@@ -1,4 +1,4 @@
-<project default="compile" basedir=".">
+<project default="findbugs" basedir=".">
   <description>
     simple example build file
   </description>
@@ -11,4 +11,29 @@
     <javac srcdir="." destdir="."/>
   </target>
 
+  <property name="findbugs.home" value="C:\Akhil\Tools\eclipse_j_luna\eclipse\plugins\edu.umd.cs.findbugs.plugin.eclipse_3.0.1.20150306-5afe4d1" />
+
+  <target name="findbugs" depends="jar">
+    <findbugs home="${findbugs.home}"
+              output="xml"
+              outputFile="bcel-fb.xml" >
+   
+      <sourcePath path="${basedir}/src/java" />
+      <class location="${basedir}/bin/bcel.jar" />
+    </findbugs>
+  </target>
+  
+  <taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+  
+  <target name="findbugs" depends="compile">
+
+    <findbugs home="${findbugs.home}"
+              output="xml:withMessages"
+              outputFile="findbugs.xml" >
+      <auxClasspath path="${basedir}/lib/Regex.jar" />
+      <sourcePath path="${basedir}/src/java" />
+      <class location="${basedir}/bin/bcel.jar" />
+    </findbugs>
+  </target>
+  
 </project>
