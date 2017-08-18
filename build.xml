@@ -1,12 +1,14 @@
-<project name="MyProject" default="dist" basedir=".">
+<project default="compile" basedir=".">
   <description>
     simple example build file
   </description>
   
-  <target name="compile"
-        description="compile the source">
-    <!-- Compile the java code from ${src} into ${build} -->
-    <javac Example.java"/>
+  <target name="info">
+      <echo>Hello World - Welcome to Apache Ant!</echo>
+   </target>
+  
+  <target name="compile" depends= "info">
+    <javac srcdir="." destdir="."/>
   </target>
 
 </project>
