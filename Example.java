@@ -18,7 +18,7 @@ public class Example {
  public static void main(final String[] args) {
 
 
-	 // Thats a change - new
+	 // Thats a change - new one change
      System.out.println("Findbugs Sample 001 for BC_IMPOSSIBLE_CAST");
 
      // WRONG
